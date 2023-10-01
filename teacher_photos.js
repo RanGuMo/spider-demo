@@ -14,8 +14,6 @@ const HOST = 'https://web.itheima.com/'
 // 创建请求对象(此时未发送请求)
 let res = http.request(HOST+'teacher.html', (res) => {
     // console.log(res)
-    // 设置字符串格式为utf-8
-    // res.setEncoding('utf-8')
     //异步的响应
     let chunks = []
     //监听data事件，获取传递过来的数据片段
@@ -26,9 +24,9 @@ let res = http.request(HOST+'teacher.html', (res) => {
 
     //监听end事件，获取数据完毕时触发
     res.on('end', () => { 
-        let html = Buffer.concat(chunks).toString() //拼接所有的chunk,并转换成字符串==>html字符串
+        let html = Buffer.concat(chunks).toString('utf-8') //拼接所有的chunk,并转换成字符串==>html字符串
         // console.log(html)
-        // 使用cheerio解楚html字符中数据
+        // 使用cheerio解析html字符中数据
         let $ = cheerio.load(html)
         console.log($('.tea_main .tea_con .tea_txt img').attr('src')); // 这个只能获取到单张图片
         console.log($('.tea_main .tea_con .tea_txt img').length); 
